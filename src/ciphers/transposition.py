@@ -114,9 +114,29 @@ class Columnar:
             for i in range(len(max_column)):
                 message += "".join([j[i] if len(j) > i else "" for j in columns])
 
-            if applications > 1 and app < applications - 1:
+            if applications > 1:  #  and app < applications - 1
                 # If ciphertext is not squre the first few columns will have an additional element
                 # Need to space these properly as otherwise unable to decode further
+                j = 0
+                for i in range(len(columns)):
+                    j += len(columns[i])
+                    message = message[:j] + " " + message[j:]
+                    j += 1
+
+                """                
+                new = ""
+                chunk_size = len(message) // self._length
+                irregular_chunks = len(message) % self._length
+                message = [
+                    message[i : i + chunk_size]
+                    for i in range(0, len(message), self._length)
+                ]
+                message = [
+                    message[i : i + chunk_size]
+                    for i in range(0, len(message), chunk_size)
+                ]  # Only for squares"""
+
+                """
                 unbalanced = " ".join(
                     message[i : i + len(max_column)]
                     for i in range(
@@ -131,7 +151,10 @@ class Columnar:
                         len(max_column) - 1,
                     )
                 )
+                
                 message = unbalanced + " " + balanced
+                """
+                print("%i message: %s" % (app, message))
 
         return self._sanatise(message)
 
@@ -142,7 +165,9 @@ class Columnar:
             message: str - Ciphertext to decode
         """
         decoded = self.partial_decode(message)
-        permutations = list(itertools.permutations(decoded))
+        permutations = list(
+            itertools.permutations(decoded)
+        )  # TODO : Might not need to make this a list
         column_length = len(max(decoded, key=len))
 
         for permutation in permutations:
@@ -193,8 +218,9 @@ class Columnar:
 
 
 if __name__ == "__main__":
-    a = Columnar("")
-    encoded = a.encode("Hello World!", 36)
+    a = Columnar("hi")
+    i = 56
+    encoded = a.encode("Hello World!", i)
     print(encoded)
-    decoded = a.decode(encoded, 36)
+    decoded = a.decode(encoded, i)
     print(decoded)
