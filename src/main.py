@@ -1,13 +1,13 @@
 from os import path
 import re
-import transposition as cipher
+import ciphers.transposition as cipher
 
 RESOURCES = path.join(path.dirname(path.realpath(__file__)), "resources")
-ENCODED_PATTERN = re.compile("(\w*):(\d*):(.+)")
-DECODED_PATTERN = re.compile("(\w+):(\d*):(.+)")
+ENCODED_PATTERN = re.compile("(\w*):(\d*):(.+)")  # Pattern for the encoded file
+DECODED_PATTERN = re.compile("(\w+):(\d*):(.+)")  # Pattern for the decoded file
 
 
-def main():
+def main() -> None:
     """Reads key and message from the resources folder and encodes/decodes it."""
 
     processor = cipher.Columnar()
@@ -57,7 +57,7 @@ def main():
     print("Bye!")
 
 
-def get_message(file_name : str) -> list[tuple]:
+def get_message(file_name : str) -> list[tuple[str, str, str]]:
     """Get key:passes:message from a file."""
     # Ooooh look how new it is
     match file_name:
@@ -77,7 +77,7 @@ def get_message(file_name : str) -> list[tuple]:
     return pattern.findall(lines)
 
 
-def put_message(file_name : str, to_write: list[str, int, str]) -> None:
+def put_message(file_name : str, to_write: list[tuple[str, int, str]]) -> None:
     """Save key:passes:message to a file."""
     match file_name:
         case "encoded":
