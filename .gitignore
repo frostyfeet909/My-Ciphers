@@ -4,3 +4,5 @@ __pycache__
 *.key
 *.encoded
 *.decoded
+decoded
+encoded

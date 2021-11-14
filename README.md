@@ -13,9 +13,21 @@ A quickly put together implemetation of the Columnar transposition.
 
 ## Usage
 
-1. Create a file called `key.key` in `resources` and type in the key you would like to use.
-2. Create a file called `message.decoded` in `resources` and type in the message you would like to encode. Alternativly `message.encoded` to decode.
-3. Run `main.py`
+1. Write encoded/decoded keys/messages in there respective files in the following format:
+
+   ```bash
+   key:passes:message
+
+   // decoded
+   hi:1:Hello World!
+   hello::Hello World!
+
+   // encoded
+   HI:1:HLOOL! ELWRD
+   HELLO:1:EO HW! LR LL OD
+   ```
+
+2. Run `main.py`
 
 ## License
 
