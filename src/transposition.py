@@ -42,7 +42,7 @@ class Columnar:
         self._key = self._sanatise(key)
 
         if not self._key.isalpha():
-            raise TypeError("[!!] Key must be alpha")
+            raise TypeError("[!!] Key must be alpha (no numbers or symbols)")
 
         self._length = len(self._key)
         self._encode_order = list(
@@ -135,8 +135,8 @@ class Columnar:
 
         return self._sanatise(message)
 
-    def force_decode(self, message: str) -> None:
-        """Allows the user to bruteforce the ciphertext.
+    def force_decode(self, message: str) -> str:
+        """Allows the user to bruteforce the ciphertext. (Works best for passes=1)
 
         Args:
             message: str - Ciphertext to decode
@@ -159,7 +159,7 @@ class Columnar:
             if correct == "y":
                 # Correct found
                 self._reverse_key(decoded, permutation)
-                return
+                return self.decode(message)
 
     def _reverse_key(self, transposed: list[str], columns: list[str]) -> None:
         """Reverse engineers the key by comparing the correct trasposition with the origional.
@@ -193,7 +193,7 @@ class Columnar:
 
 
 if __name__ == "__main__":
-    a = Columnar("beans")
+    a = Columnar("")
     encoded = a.encode("Hello World!", 36)
     print(encoded)
     decoded = a.decode(encoded, 36)
