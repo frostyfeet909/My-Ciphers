@@ -1,14 +1,13 @@
 import os
 from os import path
+import pathlib
 import subprocess
 import sys
 import importlib
 
 
 def get_location():
-    """
-    Returns the absolute file path
-    """
+    """Returns the absolute file path"""
     return path.dirname(path.realpath(__file__))
 
 
@@ -24,6 +23,15 @@ def make_dirs():
         if not path.isdir(result):
             os.mkdir(result)
             print("Made: %s" % result)
+
+    files = [
+        path.join(location, "resources", "encoded"),
+        path.join(location, "resources", "decoded"),
+    ]
+    for file in files:
+        if not path.isfile(file):
+            pathlib.Path(file).touch()
+            print("Made: %s" % file)
 
     return True
 
