@@ -10,6 +10,7 @@ DECODED_PATTERN = re.compile("(\w+):(\d*):(.+)")  # Pattern for the decoded file
 def main() -> None:
     """Reads key and message from the resources folder and encodes/decodes it."""
 
+    print("THSI SHOLDNBE THE TEST BRANCh")
     processor = cipher.Columnar()
 
     print("1. Encode")

@@ -118,8 +118,8 @@ class Columnar:
                 # If ciphertext is not squre the first few columns will have an additional element
                 # Need to space these properly as otherwise unable to decode further
                 j = 0
-                for i in range(len(columns)):
-                    j += len(columns[i])
+                for k in range(len(columns)):
+                    j += len(columns[k])
                     message = message[:j] + " " + message[j:]
                     j += 1
 
